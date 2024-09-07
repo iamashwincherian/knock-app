@@ -24,13 +24,13 @@ export default function SignInCard({ setState }: SignInCardProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [isPending, startTransaction] = useTransition();
+  const [isPending, startTransition] = useTransition();
 
   const onPasswordSignIn = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
 
-    startTransaction(async () => {
+    startTransition(async () => {
       await signIn("password", { email, password, flow: "signIn" }).catch(() =>
         setError("Invalid email or password!")
       );
@@ -38,7 +38,7 @@ export default function SignInCard({ setState }: SignInCardProps) {
   };
 
   const onProviderSignIn = (provider: "google") => {
-    startTransaction(async () => {
+    startTransition(async () => {
       await signIn(provider);
     });
   };

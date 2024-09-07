@@ -27,7 +27,7 @@ export default function SignUpCard({ setState }: SignUpCardProps) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
-  const [isPending, startTransaction] = useTransition();
+  const [isPending, startTransition] = useTransition();
 
   const onPasswordSignUp = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -37,7 +37,7 @@ export default function SignUpCard({ setState }: SignUpCardProps) {
       return setError("Passwords does not match!");
     }
 
-    startTransaction(async () => {
+    startTransition(async () => {
       await signIn("password", { name, email, password, flow: "signUp" }).catch(
         () => setError("Invalid email or password!")
       );
@@ -45,7 +45,7 @@ export default function SignUpCard({ setState }: SignUpCardProps) {
   };
 
   const onProviderSignUp = (provider: "google") => {
-    startTransaction(async () => {
+    startTransition(async () => {
       await signIn(provider);
     });
   };
